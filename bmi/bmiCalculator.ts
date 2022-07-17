@@ -1,4 +1,4 @@
-interface BmiValues {
+export interface BmiValues {
 	height: number;
 	weight: number;
 }
@@ -14,7 +14,7 @@ function parseBmiArguments(args: Array<string>): BmiValues {
 	}
 }
 
-function calculateBmi(height: number, weight: number): string {
+export default function calculateBmi(height: number, weight: number): string {
 	const bmi = Number((weight / (height / 100) ** 2).toFixed(1));
 
 	if (bmi < 16) {

@@ -16,6 +16,27 @@ interface Rating {
 		| 'perfect';
 }
 
+interface ExerciseValues {
+	exerciseHours: Array<number>;
+	target: number;
+}
+
+function parseExerciseArguments(args: Array<string>): ExerciseValues {
+	if (args.length < 4) throw new Error('Not enough arguments');
+
+	const argsNum = args.slice(2).map((arg) => {
+		if (isNaN(Number(arg))) {
+			throw new Error('Provided values were not numbers!');
+		} else {
+			return Number(arg);
+		}
+	});
+	const exerciseHours = argsNum.slice(0, -1);
+	const target = argsNum.slice(-1);
+
+	return { exerciseHours, target: target[0] };
+}
+
 function calculateExercises(
 	exerciseHours: Array<number>,
 	target: number
@@ -53,4 +74,9 @@ function calculateExercises(
 	};
 }
 
-console.log(calculateExercises([3, 0, 2, 4.5, 0, 3, 1], 4));
+try {
+	const { exerciseHours, target } = parseExerciseArguments(process.argv);
+	console.log(calculateExercises(exerciseHours, target));
+} catch (error) {
+	console.log('Something went wrong...' + error);
+}

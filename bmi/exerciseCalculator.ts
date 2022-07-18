@@ -1,4 +1,4 @@
-interface PeriodResult {
+export interface PeriodResult {
 	periodLength: number;
 	trainingDays: number;
 	success: boolean;
@@ -8,17 +8,17 @@ interface PeriodResult {
 	average: number;
 }
 
+export interface ExerciseValues {
+	exerciseHours: Array<number>;
+	target: number;
+}
+
 interface Rating {
 	rating: 1 | 2 | 3;
 	ratingDescription:
 		| 'not enough...double your effort'
 		| 'not too bad...could be better'
 		| 'perfect';
-}
-
-interface ExerciseValues {
-	exerciseHours: Array<number>;
-	target: number;
 }
 
 function parseExerciseArguments(args: Array<string>): ExerciseValues {
@@ -37,7 +37,7 @@ function parseExerciseArguments(args: Array<string>): ExerciseValues {
 	return { exerciseHours, target: target[0] };
 }
 
-function calculateExercises(
+export default function calculateExercises(
 	exerciseHours: Array<number>,
 	target: number
 ): PeriodResult {
